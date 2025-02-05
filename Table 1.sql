@@ -1,0 +1,4 @@
+CREATE DATABASE Table1;
+Use Table1
+
+CREATE 
