@@ -21,10 +21,13 @@ alter table empx add constraint emp_telno check(count(telno)=10);
 -- Doesn't work
 alter table empx add constraint empx_telno check(length(telno)=10);
 
+
+
 alter Table empx delete emp
 
 insert into empx (EID, designation, age, gender, email, telno) values ("E001", "Manager",34, "M","one@gmail.com", 1234567890);
 select * from empx;
+CREATE VIEW RACHEL AS SELECT designation FROM empx WHERE designation = "Manager";
 insert into empx (EID, designation, age, gender, email, telno) values ("E002", "Engineer",34, "M","two@gmail.com", 1534664890);
 insert into empx (EID, designation, age, gender, email, telno) values ("E002", "Clerk",34, "M","two@gmail.com", 1534664890);
 select CONSTRAINT_NAME, CONSTRAINT_type FROM information_schema.TABLE_CONSTRAINTS WHERE TABLE_NAME='empx';
