@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS UserAccount;
 USE UserAccount;
 
 -- Create Department table
-CREATE TABLE Department (
+CREATE TABLE IF NOT EXISTS Department (
     DeptNo INT PRIMARY KEY,
     DName VARCHAR(50) NOT NULL,
     Loc VARCHAR(50) NOT NULL
@@ -37,3 +37,4 @@ INSERT INTO Employee (EmpNo, Ename, Job, Salary, DeptNo) VALUES
 SHOW TABLES;
 SELECT * FROM department;
 SELECT * FROM employee;
+

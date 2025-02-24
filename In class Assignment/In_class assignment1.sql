@@ -1,0 +1,123 @@
+CREATE DATABASE BSCS;
+USE BSCS;
+
+-- Create DEPARTMENT table
+CREATE TABLE DEPARTMENT (
+    DeptNo INT PRIMARY KEY,
+    DName VARCHAR(50),
+    Loc VARCHAR(50)
+);
+
+-- Create EMPLOYEE table
+CREATE TABLE EMPLOYEE (
+    EmpNo VARCHAR(10) PRIMARY KEY,
+    Ename VARCHAR(50),
+    Job VARCHAR(50),
+    Salary DECIMAL(10, 2),
+    DeptNo INT,
+    FOREIGN KEY (DeptNo) REFERENCES DEPARTMENT(DeptNo)
+);
+
+-- Insert data into DEPARTMENT table
+INSERT INTO DEPARTMENT (DeptNo, DName, Loc) VALUES
+(10, 'SALES', 'KAMPALA'),
+(40, 'MARKETING', 'ENTEBBE'),
+(30, 'ACCOUNTING', 'MUKONO');
+
+-- Insert data into EMPLOYEE table
+INSERT INTO EMPLOYEE (EmpNo, Ename, Job, Salary, DeptNo) VALUES
+('E001', NULL, 'Clerk', 40000, 30),
+('E002', 'Agaba', 'Manager', 16000, 30),
+('E003', 'Mary', 'SalesLady', 20000, 10),
+('E004', 'Timo', 'Clerk', 40000, 30),
+('E005', 'Simon', 'Manager', 60000, 40),
+('E006', 'Mark', 'Manager', 45000, 10),
+('E007', 'Solomon', 'Teacher', 30000, 30);
+
+SHOW TABLES;
+
+
+ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_dept FOREIGN KEY (DeptNo) REFERENCES DEPARTMENT(DeptNo) ON DELETE CASCADE;
+
+
+DESC DEPARTMENT;
+DESC EMPLOYEE;
+
+CREATE VIEW view_d AS
+SELECT * FROM EMPLOYEE WHERE DeptNo = 30;
+
+CREATE VIEW view_e AS
+SELECT Job, COUNT(*) AS EmployeeCount
+FROM EMPLOYEE
+GROUP BY Job;
+
+CREATE VIEW view_f AS
+SELECT * FROM EMPLOYEE WHERE Ename LIKE '_';
+
+SELECT * FROM view_f;
+CREATE VIEW view_g AS
+SELECT DISTINCT Job FROM EMPLOYEE ORDER BY Job DESC;
+SELECT * FROM view_g;
+
+
+
+CREATE VIEW view_h AS
+SELECT Job, SUM(Salary) AS TotalSalary
+FROM EMPLOYEE
+GROUP BY Job;
+SELECT * FROM view_h;
+
+CREATE VIEW view_j AS
+SELECT Job, SUM(Salary) AS ComputedSalary
+FROM EMPLOYEE
+GROUP BY Job;
+
+
+CREATE VIEW view_i AS
+SELECT DeptNo, AVG(Salary) AS AvgSalary
+FROM EMPLOYEE
+GROUP BY DeptNo
+HAVING AvgSalary > 30000;
+
+ALTER TABLE DEPARTMENT ADD COLUMN Location VARCHAR(100);
+
+ALTER TABLE DEPARTMENT MODIFY DName VARCHAR(50);
+
+SHOW TABLES;
+SHOW FULL TABLES WHERE Table_Type = 'VIEW';
+
+CREATE VIEW view_n AS
+SELECT EmpNo, Ename, 
+    CASE 
+        WHEN DeptNo = 10 THEN 'Computing Dept'
+        WHEN DeptNo = 30 THEN 'Business Dept'
+        WHEN DeptNo = 40 THEN 'Marketing Dept'
+        ELSE 'N/A'
+    END AS Department
+FROM EMPLOYEE;
+
+CREATE VIEW view_o AS
+SELECT EmpNo, Ename, Job, DeptNo, Salary,
+    CASE 
+        WHEN DeptNo = 10 THEN Salary * 1.08
+        WHEN DeptNo = 30 THEN Salary * 0.88
+        WHEN DeptNo = 40 THEN Salary * 1.10
+        ELSE Salary
+    END AS AdjustedSalary
+FROM EMPLOYEE;
+
+START TRANSACTION;
+
+UPDATE EMPLOYEE
+SET Salary = 80000, Job = 'Cleaner'
+WHERE EmpNo = 'E004';
+
+DELETE FROM EMPLOYEE WHERE EmpNo = 'E002';
+
+DESC EMPLOYEE;
+
+ROLLBACK;
+
+DESCRIBE EMPLOYEE;
+
+SELECT * FROM EMPLOYEE;
