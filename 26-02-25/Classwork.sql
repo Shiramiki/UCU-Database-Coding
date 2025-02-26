@@ -20,3 +20,7 @@ INSERT INTO Employee (FirstName, LastName, Age, Email) VALUES
 
 ALTER Table Employee Drop CONSTRAINT Employee_AgeCheck;
 
+UPDATE Employee SET Age =32 WHERE EmployeeeID =2;
+
+SELECT * FROM Employee;
+
