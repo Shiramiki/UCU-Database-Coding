@@ -81,3 +81,16 @@ create PROCEDURE insertion(in regno VARCHAR(50), in fname VARCHAR(50), in lname 
     (regno, fname, lname, fees);
     end/
 
+
+CREATE user "rachel" @"localhost" IDENTIFIED by "rach"/
+
+ALTER USER "rachel"@"localhost" password EXPIRE;
+
+CREATE user "denise" @"localhost" IDENTIFIED by "den"/
+
+ALTER USER "denise"@"localhost" password EXPIRE;
+
+alter user "denise"@"localhost" ACCOUNT LOCK;
+alter user "denise"@"localhost" ACCOUNT UNLOCK;
+
+alter user "denise"@"localhost" IDENTIFIED by "bag123"
