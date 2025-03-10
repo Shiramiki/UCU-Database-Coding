@@ -37,4 +37,3 @@ INSERT INTO Employee (EmpNo, Ename, Job, Salary, DeptNo) VALUES
 SHOW TABLES;
 SELECT * FROM department;
 SELECT * FROM employee;
-
