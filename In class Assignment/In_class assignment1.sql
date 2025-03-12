@@ -96,6 +96,8 @@ SELECT EmpNo, Ename,
     END AS Department
 FROM EMPLOYEE;
 
+SELECT * FROM view_n;
+
 CREATE VIEW view_o AS
 SELECT EmpNo, Ename, Job, DeptNo, Salary,
     CASE 
